@@ -3,7 +3,7 @@ package MyAnimals;
 public class Animal {
     protected String name;
     protected int run;
-
+    protected boolean fullness;
 
     public Animal(){
 
@@ -23,5 +23,10 @@ public class Animal {
 
     public void name() {
         System.out.println(this.name);
+    }
+
+    public void eat(String name, Plate plate, int percent) {
+        Plate pl = plate;
+        pl.eat(name, percent);
     }
 }
