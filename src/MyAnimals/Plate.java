@@ -7,14 +7,15 @@ public class Plate {
 
     }
 
-    public void eat(String name, int percent) {
+    public int eat(String name, int percent) {
         if(percent > fullness || percent < 0) {
             System.out.println(name + " тут так " + "(" + percent + "%) " + "покушать не получиться \n");
+            return 0;
         }
         else {
             fullness -= percent;
             System.out.println(name + " съел " + percent + "% еды" + "\n");
-
+            return percent;
         }
     }
 

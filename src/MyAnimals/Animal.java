@@ -28,5 +28,6 @@ public class Animal {
     public void eat(String name, Plate plate, int percent) {
         Plate pl = plate;
         pl.eat(name, percent);
+        //todo set int
     }
 }
