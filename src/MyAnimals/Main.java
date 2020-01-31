@@ -9,7 +9,6 @@ public class Main {
         boolean c = cat.getFullness();
         System.out.println(cat.name + " ты еже поел? -" + c);
 
-        //todo сделать проверку на поел/нет
         dog.eat(dog.name, plate, 39);
         boolean d = dog.getFullness();
         System.out.println(dog.name + " ты еже поел? -" + d );
