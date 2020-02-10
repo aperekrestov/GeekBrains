@@ -94,14 +94,6 @@ public class GameActionListener implements ActionListener {
             turn = true;
         }
 
-//        int x, y;
-//        Random rnd = new Random();
-//
-//        do {
-//            x = rnd.nextInt(GameBoard.dimension);
-//            y = rnd.nextInt(GameBoard.dimension);
-//        } while (!board.isTurnable(x, y));
-
         // Обновим матрицу игры
         board.updateGameField(x, y);
         // Обновим содержимое кнопки
