@@ -23,33 +23,34 @@ public class GameActionListener implements ActionListener {
             updateByPlayersData(board);
 
             if (board.isFull()) {
-                board.getGame().showMassage("Ничья!");
+                board.getGame().showMessage("Ничья!");
                 board.emptyField();
             }
             else {
-                updateByAiData(board);
+                if (!board.getGame().getCurrentPlayer().isRealPlayer()) {
+                    updateByAiData(board);
+                }
             }
         }
         else {
-            board.getGame().showMassage("Некорректный ход!");
+            board.getGame().showMessage("Некорректный ход!");
         }
     }
 
     public void updateByPlayersData(GameBoard board) {
-        board.updateGameFialed(row, cell);
+        board.updateGameField(row, cell);
         button.setText(Character.toString(board.getGame().getCurrentPlayer().getPlayerSign()));
 
         if (board.checkWin()) {
-            button.getBoard().getGame().showMassage("Вы выиграли!");
-            board.emptyField();
+            button.getBoard().getGame().showMessage("Вы выиграли!");
+            //board.emptyField();
         }
-        else {
+        else{
             board.getGame().passTurn();
         }
     }
 
     private void updateByAiData(GameBoard board) {
-        // Генерация координат хода компьютера
         int x, y;
         Random rnd = new Random();
 
@@ -60,15 +61,14 @@ public class GameActionListener implements ActionListener {
 
         // Обновим матрицу игры
         board.updateGameField(x, y);
-
         // Обновим содержимое кнопки
         int cellIndex = GameBoard.dimension * x + y;
         board.getButton(cellIndex).setText(Character.toString(board.getGame().getCurrentPlayer().getPlayerSign()));
 
-        // Проверить победу
         if (board.checkWin()) {
             button.getBoard().getGame().showMessage("Компьютер выиграл!");
-            board.emptyField();
+            board.getGame().passTurn();//Для корректоного старта игры 
+           // board.emptyField();
         } else {
             board.getGame().passTurn();
         }

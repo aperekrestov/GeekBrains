@@ -32,8 +32,7 @@ public class Game {
     }
 
     // popup
-    void showMassage(String messageText) {
+    void showMessage(String messageText) {
         JOptionPane.showMessageDialog(board, messageText);
     }
-
 }

@@ -62,13 +62,15 @@ public class GameBoard extends JFrame {
 
     // метод очистки поля и матрицы игры
     void emptyField() {
-        for (int i = 0; i < (dimension * dimension) ; i++) {
+        for (int i = 0; i < (dimension * dimension); i++){
             gameButtons[i].setText("");
 
             int x = i / GameBoard.dimension;
             int y = i % GameBoard.dimension;
 
             gameField[x][y] = nullSymbol;
+
+            //todo решить проблему с переключением символа при выигрыше Ai
         }
     }
 
@@ -77,18 +79,19 @@ public class GameBoard extends JFrame {
     }
 
     // метод проверки доступности хода
-    boolean isTurnable(int x, int y) {
+    boolean isTurnable(int x, int y){
         boolean result = false;
 
-        if (gameField[x][y] == nullSymbol) {
+        if (gameField[y][x] == nullSymbol){
             result = true;
         }
 
         return result;
     }
 
+
     // обновление матрицы игры
-    void updateGameFialed(int x, int y) {
+    void updateGameField(int x, int y) {
         gameField[y][x] = game.getCurrentPlayer().getPlayerSign();
     }
 
