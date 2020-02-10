@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class GameBoard extends JFrame {
     static int dimension = 3;
@@ -18,6 +19,33 @@ public class GameBoard extends JFrame {
     public GameBoard(Game currantGame) {
         this.game = currantGame;
         initField();
+    }
+    /**
+     * преобразование строки матрицы в текстовую строку и подсчет количества Х и 0 в ней
+     * @param mode принимает значения 1-по вертикали 2-по горизонтали 3-диагональ 4-обратная диагональ
+     * @param num номер строки или ряда
+     * @param sym символ Х или 0 для подсчета
+     * @return  количество искомых символов
+     */
+    public int fieldToStr(int mode, int num, char sym){
+        int result = 0;
+        String str;
+        char[] dop = new char[dimension];
+        //собираем символы из матрици в зависимости от режима обхода
+        for (int i = 0; i < dimension; i++)
+            switch (mode){
+                case 1: dop[i] = gameField[i][num]; break;
+                case 2: dop[i] = gameField[num][i]; break;
+                case 3: dop[i] = gameField[i][i];   break;
+                case 4: dop[i] = gameField[dimension-i-1][i]; break;
+                default: break;
+            }
+
+
+        str = new String(dop);
+        // считаем количество искомых символов
+        result = str.length() - str.replace(Character.toString(sym), "").length();
+        return result;
     }
 
     private void initField() {
@@ -166,5 +194,31 @@ public class GameBoard extends JFrame {
             }
         }
         return result;
+    }
+
+    /**
+     * находит в заданной строке(столбце или диагонали) случайную свободную клетку для установки "0"
+     * @param mode принимает значения 1-по вертикали 2-по горизонтали 3-диагональ 4-обратная диагональ
+     * @param num номер строки или ряда
+     * @return  координата свободной клетки в строке(столбце или диагонали)
+     */
+    public int randToField(int mode, int num){
+        int x=-1;
+        Random rnd = new Random();
+        boolean result = false;
+        do {
+            // генерация случайного значения
+            x = rnd.nextInt(GameBoard.dimension);
+            //прооверка клетки на занятость в зависимости от режима обхода
+            switch (mode){
+                case 1: result = isTurnable(x, num); break;
+                case 2: result = isTurnable(num, x); break;
+                case 3: result = isTurnable(x, x);   break;
+                case 4: result = isTurnable(dimension-x-1, x); break;
+                default: break;
+            }
+
+        } while (!result);
+        return x;
     }
 }
